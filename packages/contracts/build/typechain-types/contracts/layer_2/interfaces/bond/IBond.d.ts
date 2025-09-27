@@ -1,0 +1,104 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, ContractTransaction, Overrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../../common";
+export declare namespace IBondRead {
+    type CouponStruct = {
+        recordDate: PromiseOrValue<BigNumberish>;
+        executionDate: PromiseOrValue<BigNumberish>;
+        rate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponStructOutput = [BigNumber, BigNumber, BigNumber] & {
+        recordDate: BigNumber;
+        executionDate: BigNumber;
+        rate: BigNumber;
+    };
+}
+export interface IBondInterface extends utils.Interface {
+    functions: {
+        "redeemAtMaturityByPartition(address,bytes32,uint256)": FunctionFragment;
+        "setCoupon((uint256,uint256,uint256))": FunctionFragment;
+        "updateMaturityDate(uint256)": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "redeemAtMaturityByPartition" | "setCoupon" | "updateMaturityDate"): FunctionFragment;
+    encodeFunctionData(functionFragment: "redeemAtMaturityByPartition", values: [
+        PromiseOrValue<string>,
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<BigNumberish>
+    ]): string;
+    encodeFunctionData(functionFragment: "setCoupon", values: [IBondRead.CouponStruct]): string;
+    encodeFunctionData(functionFragment: "updateMaturityDate", values: [PromiseOrValue<BigNumberish>]): string;
+    decodeFunctionResult(functionFragment: "redeemAtMaturityByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "setCoupon", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "updateMaturityDate", data: BytesLike): Result;
+    events: {};
+}
+export interface IBond extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: IBondInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+    };
+    redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    callStatic: {
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: CallOverrides): Promise<[
+            boolean,
+            BigNumber
+        ] & {
+            success_: boolean;
+            couponID_: BigNumber;
+        }>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<boolean>;
+    };
+    filters: {};
+    estimateGas: {
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+    };
+}

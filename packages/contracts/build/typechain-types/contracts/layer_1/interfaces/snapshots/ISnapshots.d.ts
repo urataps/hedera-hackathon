@@ -1,0 +1,186 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, ContractTransaction, Overrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../../common";
+export interface ISnapshotsInterface extends utils.Interface {
+    functions: {
+        "balanceOfAtSnapshot(uint256,address)": FunctionFragment;
+        "balanceOfAtSnapshotByPartition(bytes32,uint256,address)": FunctionFragment;
+        "decimalsAtSnapshot(uint256)": FunctionFragment;
+        "getTokenHoldersAtSnapshot(uint256,uint256,uint256)": FunctionFragment;
+        "getTotalTokenHoldersAtSnapshot(uint256)": FunctionFragment;
+        "lockedBalanceOfAtSnapshot(uint256,address)": FunctionFragment;
+        "lockedBalanceOfAtSnapshotByPartition(bytes32,uint256,address)": FunctionFragment;
+        "partitionsOfAtSnapshot(uint256,address)": FunctionFragment;
+        "takeSnapshot()": FunctionFragment;
+        "totalSupplyAtSnapshot(uint256)": FunctionFragment;
+        "totalSupplyAtSnapshotByPartition(bytes32,uint256)": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "balanceOfAtSnapshot" | "balanceOfAtSnapshotByPartition" | "decimalsAtSnapshot" | "getTokenHoldersAtSnapshot" | "getTotalTokenHoldersAtSnapshot" | "lockedBalanceOfAtSnapshot" | "lockedBalanceOfAtSnapshotByPartition" | "partitionsOfAtSnapshot" | "takeSnapshot" | "totalSupplyAtSnapshot" | "totalSupplyAtSnapshotByPartition"): FunctionFragment;
+    encodeFunctionData(functionFragment: "balanceOfAtSnapshot", values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]): string;
+    encodeFunctionData(functionFragment: "balanceOfAtSnapshotByPartition", values: [
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<string>
+    ]): string;
+    encodeFunctionData(functionFragment: "decimalsAtSnapshot", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "getTokenHoldersAtSnapshot", values: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+    ]): string;
+    encodeFunctionData(functionFragment: "getTotalTokenHoldersAtSnapshot", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "lockedBalanceOfAtSnapshot", values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]): string;
+    encodeFunctionData(functionFragment: "lockedBalanceOfAtSnapshotByPartition", values: [
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<string>
+    ]): string;
+    encodeFunctionData(functionFragment: "partitionsOfAtSnapshot", values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]): string;
+    encodeFunctionData(functionFragment: "takeSnapshot", values?: undefined): string;
+    encodeFunctionData(functionFragment: "totalSupplyAtSnapshot", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "totalSupplyAtSnapshotByPartition", values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]): string;
+    decodeFunctionResult(functionFragment: "balanceOfAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "balanceOfAtSnapshotByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "decimalsAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getTokenHoldersAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getTotalTokenHoldersAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "lockedBalanceOfAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "lockedBalanceOfAtSnapshotByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "partitionsOfAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "takeSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "totalSupplyAtSnapshot", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "totalSupplyAtSnapshotByPartition", data: BytesLike): Result;
+    events: {
+        "SnapshotTaken(address,uint256)": EventFragment;
+        "SnapshotTriggered(address,uint256)": EventFragment;
+    };
+    getEvent(nameOrSignatureOrTopic: "SnapshotTaken"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "SnapshotTriggered"): EventFragment;
+}
+export interface SnapshotTakenEventObject {
+    operator: string;
+    snapshotID: BigNumber;
+}
+export type SnapshotTakenEvent = TypedEvent<[
+    string,
+    BigNumber
+], SnapshotTakenEventObject>;
+export type SnapshotTakenEventFilter = TypedEventFilter<SnapshotTakenEvent>;
+export interface SnapshotTriggeredEventObject {
+    operator: string;
+    snapshotId: BigNumber;
+}
+export type SnapshotTriggeredEvent = TypedEvent<[
+    string,
+    BigNumber
+], SnapshotTriggeredEventObject>;
+export type SnapshotTriggeredEventFilter = TypedEventFilter<SnapshotTriggeredEvent>;
+export interface ISnapshots extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: ISnapshotsInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        balanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber] & {
+            balance_: BigNumber;
+        }>;
+        balanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber] & {
+            balance_: BigNumber;
+        }>;
+        decimalsAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[number] & {
+            decimals_: number;
+        }>;
+        getTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string[]] & {
+            holders_: string[];
+        }>;
+        getTotalTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber]>;
+        lockedBalanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber] & {
+            balance_: BigNumber;
+        }>;
+        lockedBalanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[BigNumber] & {
+            balance_: BigNumber;
+        }>;
+        partitionsOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[string[]]>;
+        takeSnapshot(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        totalSupplyAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber] & {
+            totalSupply_: BigNumber;
+        }>;
+        totalSupplyAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber] & {
+            totalSupply_: BigNumber;
+        }>;
+    };
+    balanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+    decimalsAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<number>;
+    getTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string[]>;
+    getTotalTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    lockedBalanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+    lockedBalanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+    partitionsOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string[]>;
+    takeSnapshot(overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    totalSupplyAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    totalSupplyAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    callStatic: {
+        balanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        balanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        decimalsAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<number>;
+        getTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string[]>;
+        getTotalTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        lockedBalanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        lockedBalanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        partitionsOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<string[]>;
+        takeSnapshot(overrides?: CallOverrides): Promise<BigNumber>;
+        totalSupplyAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        totalSupplyAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    };
+    filters: {
+        "SnapshotTaken(address,uint256)"(operator?: PromiseOrValue<string> | null, snapshotID?: PromiseOrValue<BigNumberish> | null): SnapshotTakenEventFilter;
+        SnapshotTaken(operator?: PromiseOrValue<string> | null, snapshotID?: PromiseOrValue<BigNumberish> | null): SnapshotTakenEventFilter;
+        "SnapshotTriggered(address,uint256)"(operator?: PromiseOrValue<string> | null, snapshotId?: null): SnapshotTriggeredEventFilter;
+        SnapshotTriggered(operator?: PromiseOrValue<string> | null, snapshotId?: null): SnapshotTriggeredEventFilter;
+    };
+    estimateGas: {
+        balanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        balanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        decimalsAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getTotalTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        lockedBalanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        lockedBalanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        partitionsOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        takeSnapshot(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        totalSupplyAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        totalSupplyAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        balanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        balanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        decimalsAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getTotalTokenHoldersAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        lockedBalanceOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        lockedBalanceOfAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        partitionsOfAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, _tokenHolder: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        takeSnapshot(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        totalSupplyAtSnapshot(_snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        totalSupplyAtSnapshotByPartition(_partition: PromiseOrValue<BytesLike>, _snapshotID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    };
+}

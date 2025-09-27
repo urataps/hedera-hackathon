@@ -1,0 +1,10 @@
+export * as ierc3643BasicSol from "./IERC3643Basic.sol";
+export { ICompliance__factory } from "./ICompliance__factory";
+export { IERC3643__factory } from "./IERC3643__factory";
+export { IERC3643Batch__factory } from "./IERC3643Batch__factory";
+export { IERC3643Management__factory } from "./IERC3643Management__factory";
+export { IERC3643Operations__factory } from "./IERC3643Operations__factory";
+export { IERC3643Read__factory } from "./IERC3643Read__factory";
+export { IERC3643StorageWrapper__factory } from "./IERC3643StorageWrapper__factory";
+export { IFreeze__factory } from "./IFreeze__factory";
+export { IIdentityRegistry__factory } from "./IIdentityRegistry__factory";

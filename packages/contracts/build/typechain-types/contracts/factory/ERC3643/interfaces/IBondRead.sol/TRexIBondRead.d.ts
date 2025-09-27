@@ -1,0 +1,191 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../../../common";
+export declare namespace TRexIBondRead {
+    type BondDetailsDataStruct = {
+        currency: PromiseOrValue<BytesLike>;
+        nominalValue: PromiseOrValue<BigNumberish>;
+        startingDate: PromiseOrValue<BigNumberish>;
+        maturityDate: PromiseOrValue<BigNumberish>;
+    };
+    type BondDetailsDataStructOutput = [
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber
+    ] & {
+        currency: string;
+        nominalValue: BigNumber;
+        startingDate: BigNumber;
+        maturityDate: BigNumber;
+    };
+    type CouponStruct = {
+        recordDate: PromiseOrValue<BigNumberish>;
+        executionDate: PromiseOrValue<BigNumberish>;
+        rate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponStructOutput = [BigNumber, BigNumber, BigNumber] & {
+        recordDate: BigNumber;
+        executionDate: BigNumber;
+        rate: BigNumber;
+    };
+    type RegisteredCouponStruct = {
+        coupon: TRexIBondRead.CouponStruct;
+        snapshotId: PromiseOrValue<BigNumberish>;
+    };
+    type RegisteredCouponStructOutput = [
+        TRexIBondRead.CouponStructOutput,
+        BigNumber
+    ] & {
+        coupon: TRexIBondRead.CouponStructOutput;
+        snapshotId: BigNumber;
+    };
+    type CouponDetailsDataStruct = {
+        couponFrequency: PromiseOrValue<BigNumberish>;
+        couponRate: PromiseOrValue<BigNumberish>;
+        firstCouponDate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponDetailsDataStructOutput = [
+        BigNumber,
+        BigNumber,
+        BigNumber
+    ] & {
+        couponFrequency: BigNumber;
+        couponRate: BigNumber;
+        firstCouponDate: BigNumber;
+    };
+    type CouponForStruct = {
+        tokenBalance: PromiseOrValue<BigNumberish>;
+        rate: PromiseOrValue<BigNumberish>;
+        recordDate: PromiseOrValue<BigNumberish>;
+        executionDate: PromiseOrValue<BigNumberish>;
+        decimals: PromiseOrValue<BigNumberish>;
+        recordDateReached: PromiseOrValue<boolean>;
+    };
+    type CouponForStructOutput = [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        number,
+        boolean
+    ] & {
+        tokenBalance: BigNumber;
+        rate: BigNumber;
+        recordDate: BigNumber;
+        executionDate: BigNumber;
+        decimals: number;
+        recordDateReached: boolean;
+    };
+}
+export interface TRexIBondReadInterface extends utils.Interface {
+    functions: {
+        "getBondDetails()": FunctionFragment;
+        "getCoupon(uint256)": FunctionFragment;
+        "getCouponCount()": FunctionFragment;
+        "getCouponDetails()": FunctionFragment;
+        "getCouponFor(uint256,address)": FunctionFragment;
+        "getCouponHolders(uint256,uint256,uint256)": FunctionFragment;
+        "getTotalCouponHolders(uint256)": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "getBondDetails" | "getCoupon" | "getCouponCount" | "getCouponDetails" | "getCouponFor" | "getCouponHolders" | "getTotalCouponHolders"): FunctionFragment;
+    encodeFunctionData(functionFragment: "getBondDetails", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getCoupon", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "getCouponCount", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getCouponDetails", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getCouponFor", values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]): string;
+    encodeFunctionData(functionFragment: "getCouponHolders", values: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+    ]): string;
+    encodeFunctionData(functionFragment: "getTotalCouponHolders", values: [PromiseOrValue<BigNumberish>]): string;
+    decodeFunctionResult(functionFragment: "getBondDetails", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCoupon", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponCount", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponDetails", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponFor", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponHolders", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getTotalCouponHolders", data: BytesLike): Result;
+    events: {};
+}
+export interface TRexIBondRead extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: TRexIBondReadInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        getBondDetails(overrides?: CallOverrides): Promise<[
+            TRexIBondRead.BondDetailsDataStructOutput
+        ] & {
+            bondDetailsData_: TRexIBondRead.BondDetailsDataStructOutput;
+        }>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[
+            TRexIBondRead.RegisteredCouponStructOutput
+        ] & {
+            registeredCoupon_: TRexIBondRead.RegisteredCouponStructOutput;
+        }>;
+        getCouponCount(overrides?: CallOverrides): Promise<[BigNumber] & {
+            couponCount_: BigNumber;
+        }>;
+        getCouponDetails(overrides?: CallOverrides): Promise<[
+            TRexIBondRead.CouponDetailsDataStructOutput
+        ] & {
+            couponDetails_: TRexIBondRead.CouponDetailsDataStructOutput;
+        }>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[
+            TRexIBondRead.CouponForStructOutput
+        ] & {
+            couponFor_: TRexIBondRead.CouponForStructOutput;
+        }>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string[]] & {
+            holders_: string[];
+        }>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber]>;
+    };
+    getBondDetails(overrides?: CallOverrides): Promise<TRexIBondRead.BondDetailsDataStructOutput>;
+    getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<TRexIBondRead.RegisteredCouponStructOutput>;
+    getCouponCount(overrides?: CallOverrides): Promise<BigNumber>;
+    getCouponDetails(overrides?: CallOverrides): Promise<TRexIBondRead.CouponDetailsDataStructOutput>;
+    getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<TRexIBondRead.CouponForStructOutput>;
+    getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string[]>;
+    getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    callStatic: {
+        getBondDetails(overrides?: CallOverrides): Promise<TRexIBondRead.BondDetailsDataStructOutput>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<TRexIBondRead.RegisteredCouponStructOutput>;
+        getCouponCount(overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponDetails(overrides?: CallOverrides): Promise<TRexIBondRead.CouponDetailsDataStructOutput>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<TRexIBondRead.CouponForStructOutput>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string[]>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    };
+    filters: {};
+    estimateGas: {
+        getBondDetails(overrides?: CallOverrides): Promise<BigNumber>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponCount(overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponDetails(overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        getBondDetails(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponDetails(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    };
+}

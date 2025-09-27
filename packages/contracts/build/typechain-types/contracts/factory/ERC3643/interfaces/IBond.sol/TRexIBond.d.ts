@@ -1,0 +1,249 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, ContractTransaction, Overrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../../../common";
+export declare namespace TRexIBond {
+    type BondDetailsDataStruct = {
+        currency: PromiseOrValue<BytesLike>;
+        nominalValue: PromiseOrValue<BigNumberish>;
+        startingDate: PromiseOrValue<BigNumberish>;
+        maturityDate: PromiseOrValue<BigNumberish>;
+    };
+    type BondDetailsDataStructOutput = [
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber
+    ] & {
+        currency: string;
+        nominalValue: BigNumber;
+        startingDate: BigNumber;
+        maturityDate: BigNumber;
+    };
+    type CouponStruct = {
+        recordDate: PromiseOrValue<BigNumberish>;
+        executionDate: PromiseOrValue<BigNumberish>;
+        rate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponStructOutput = [BigNumber, BigNumber, BigNumber] & {
+        recordDate: BigNumber;
+        executionDate: BigNumber;
+        rate: BigNumber;
+    };
+    type RegisteredCouponStruct = {
+        coupon: TRexIBond.CouponStruct;
+        snapshotId: PromiseOrValue<BigNumberish>;
+    };
+    type RegisteredCouponStructOutput = [
+        TRexIBond.CouponStructOutput,
+        BigNumber
+    ] & {
+        coupon: TRexIBond.CouponStructOutput;
+        snapshotId: BigNumber;
+    };
+    type CouponDetailsDataStruct = {
+        couponFrequency: PromiseOrValue<BigNumberish>;
+        couponRate: PromiseOrValue<BigNumberish>;
+        firstCouponDate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponDetailsDataStructOutput = [
+        BigNumber,
+        BigNumber,
+        BigNumber
+    ] & {
+        couponFrequency: BigNumber;
+        couponRate: BigNumber;
+        firstCouponDate: BigNumber;
+    };
+    type CouponForStruct = {
+        tokenBalance: PromiseOrValue<BigNumberish>;
+        rate: PromiseOrValue<BigNumberish>;
+        recordDate: PromiseOrValue<BigNumberish>;
+        executionDate: PromiseOrValue<BigNumberish>;
+        decimals: PromiseOrValue<BigNumberish>;
+        recordDateReached: PromiseOrValue<boolean>;
+    };
+    type CouponForStructOutput = [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        number,
+        boolean
+    ] & {
+        tokenBalance: BigNumber;
+        rate: BigNumber;
+        recordDate: BigNumber;
+        executionDate: BigNumber;
+        decimals: number;
+        recordDateReached: boolean;
+    };
+}
+export interface TRexIBondInterface extends utils.Interface {
+    functions: {
+        "getBondDetails()": FunctionFragment;
+        "getCoupon(uint256)": FunctionFragment;
+        "getCouponCount()": FunctionFragment;
+        "getCouponDetails()": FunctionFragment;
+        "getCouponFor(uint256,address)": FunctionFragment;
+        "getCouponHolders(uint256,uint256,uint256)": FunctionFragment;
+        "getTotalCouponHolders(uint256)": FunctionFragment;
+        "redeemAtMaturityByPartition(address,bytes32,uint256)": FunctionFragment;
+        "setCoupon((uint256,uint256,uint256))": FunctionFragment;
+        "updateMaturityDate(uint256)": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "getBondDetails" | "getCoupon" | "getCouponCount" | "getCouponDetails" | "getCouponFor" | "getCouponHolders" | "getTotalCouponHolders" | "redeemAtMaturityByPartition" | "setCoupon" | "updateMaturityDate"): FunctionFragment;
+    encodeFunctionData(functionFragment: "getBondDetails", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getCoupon", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "getCouponCount", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getCouponDetails", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getCouponFor", values: [PromiseOrValue<BigNumberish>, PromiseOrValue<string>]): string;
+    encodeFunctionData(functionFragment: "getCouponHolders", values: [
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>,
+        PromiseOrValue<BigNumberish>
+    ]): string;
+    encodeFunctionData(functionFragment: "getTotalCouponHolders", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "redeemAtMaturityByPartition", values: [
+        PromiseOrValue<string>,
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<BigNumberish>
+    ]): string;
+    encodeFunctionData(functionFragment: "setCoupon", values: [TRexIBond.CouponStruct]): string;
+    encodeFunctionData(functionFragment: "updateMaturityDate", values: [PromiseOrValue<BigNumberish>]): string;
+    decodeFunctionResult(functionFragment: "getBondDetails", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCoupon", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponCount", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponDetails", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponFor", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getCouponHolders", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getTotalCouponHolders", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "redeemAtMaturityByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "setCoupon", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "updateMaturityDate", data: BytesLike): Result;
+    events: {};
+}
+export interface TRexIBond extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: TRexIBondInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        getBondDetails(overrides?: CallOverrides): Promise<[
+            TRexIBond.BondDetailsDataStructOutput
+        ] & {
+            bondDetailsData_: TRexIBond.BondDetailsDataStructOutput;
+        }>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[
+            TRexIBond.RegisteredCouponStructOutput
+        ] & {
+            registeredCoupon_: TRexIBond.RegisteredCouponStructOutput;
+        }>;
+        getCouponCount(overrides?: CallOverrides): Promise<[BigNumber] & {
+            couponCount_: BigNumber;
+        }>;
+        getCouponDetails(overrides?: CallOverrides): Promise<[
+            TRexIBond.CouponDetailsDataStructOutput
+        ] & {
+            couponDetails_: TRexIBond.CouponDetailsDataStructOutput;
+        }>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<[
+            TRexIBond.CouponForStructOutput
+        ] & {
+            couponFor_: TRexIBond.CouponForStructOutput;
+        }>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[string[]] & {
+            holders_: string[];
+        }>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[BigNumber]>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        setCoupon(_newCoupon: TRexIBond.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+    };
+    getBondDetails(overrides?: CallOverrides): Promise<TRexIBond.BondDetailsDataStructOutput>;
+    getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<TRexIBond.RegisteredCouponStructOutput>;
+    getCouponCount(overrides?: CallOverrides): Promise<BigNumber>;
+    getCouponDetails(overrides?: CallOverrides): Promise<TRexIBond.CouponDetailsDataStructOutput>;
+    getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<TRexIBond.CouponForStructOutput>;
+    getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string[]>;
+    getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+    redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    setCoupon(_newCoupon: TRexIBond.CouponStruct, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    callStatic: {
+        getBondDetails(overrides?: CallOverrides): Promise<TRexIBond.BondDetailsDataStructOutput>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<TRexIBond.RegisteredCouponStructOutput>;
+        getCouponCount(overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponDetails(overrides?: CallOverrides): Promise<TRexIBond.CouponDetailsDataStructOutput>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<TRexIBond.CouponForStructOutput>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<string[]>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+        setCoupon(_newCoupon: TRexIBond.CouponStruct, overrides?: CallOverrides): Promise<[
+            boolean,
+            BigNumber
+        ] & {
+            success_: boolean;
+            couponID_: BigNumber;
+        }>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<boolean>;
+    };
+    filters: {};
+    estimateGas: {
+        getBondDetails(overrides?: CallOverrides): Promise<BigNumber>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponCount(overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponDetails(overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<BigNumber>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        setCoupon(_newCoupon: TRexIBond.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        getBondDetails(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCoupon(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponDetails(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponFor(_couponID: PromiseOrValue<BigNumberish>, _account: PromiseOrValue<string>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getCouponHolders(_couponID: PromiseOrValue<BigNumberish>, _pageIndex: PromiseOrValue<BigNumberish>, _pageLength: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getTotalCouponHolders(_couponID: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        setCoupon(_newCoupon: TRexIBond.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+    };
+}

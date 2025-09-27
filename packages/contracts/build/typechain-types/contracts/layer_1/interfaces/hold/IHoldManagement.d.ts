@@ -1,0 +1,214 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, ContractTransaction, Overrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../../common";
+export type HoldStruct = {
+    amount: PromiseOrValue<BigNumberish>;
+    expirationTimestamp: PromiseOrValue<BigNumberish>;
+    escrow: PromiseOrValue<string>;
+    to: PromiseOrValue<string>;
+    data: PromiseOrValue<BytesLike>;
+};
+export type HoldStructOutput = [
+    BigNumber,
+    BigNumber,
+    string,
+    string,
+    string
+] & {
+    amount: BigNumber;
+    expirationTimestamp: BigNumber;
+    escrow: string;
+    to: string;
+    data: string;
+};
+export type ProtectedHoldStruct = {
+    hold: HoldStruct;
+    deadline: PromiseOrValue<BigNumberish>;
+    nonce: PromiseOrValue<BigNumberish>;
+};
+export type ProtectedHoldStructOutput = [
+    HoldStructOutput,
+    BigNumber,
+    BigNumber
+] & {
+    hold: HoldStructOutput;
+    deadline: BigNumber;
+    nonce: BigNumber;
+};
+export interface IHoldManagementInterface extends utils.Interface {
+    functions: {
+        "controllerCreateHoldByPartition(bytes32,address,(uint256,uint256,address,address,bytes),bytes)": FunctionFragment;
+        "operatorCreateHoldByPartition(bytes32,address,(uint256,uint256,address,address,bytes),bytes)": FunctionFragment;
+        "protectedCreateHoldByPartition(bytes32,address,((uint256,uint256,address,address,bytes),uint256,uint256),bytes)": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "controllerCreateHoldByPartition" | "operatorCreateHoldByPartition" | "protectedCreateHoldByPartition"): FunctionFragment;
+    encodeFunctionData(functionFragment: "controllerCreateHoldByPartition", values: [
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<string>,
+        HoldStruct,
+        PromiseOrValue<BytesLike>
+    ]): string;
+    encodeFunctionData(functionFragment: "operatorCreateHoldByPartition", values: [
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<string>,
+        HoldStruct,
+        PromiseOrValue<BytesLike>
+    ]): string;
+    encodeFunctionData(functionFragment: "protectedCreateHoldByPartition", values: [
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<string>,
+        ProtectedHoldStruct,
+        PromiseOrValue<BytesLike>
+    ]): string;
+    decodeFunctionResult(functionFragment: "controllerCreateHoldByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "operatorCreateHoldByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "protectedCreateHoldByPartition", data: BytesLike): Result;
+    events: {
+        "ControllerHeldByPartition(address,address,bytes32,uint256,tuple,bytes)": EventFragment;
+        "OperatorHeldByPartition(address,address,bytes32,uint256,tuple,bytes)": EventFragment;
+        "ProtectedHeldByPartition(address,address,bytes32,uint256,tuple,bytes)": EventFragment;
+    };
+    getEvent(nameOrSignatureOrTopic: "ControllerHeldByPartition"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "OperatorHeldByPartition"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "ProtectedHeldByPartition"): EventFragment;
+}
+export interface ControllerHeldByPartitionEventObject {
+    operator: string;
+    tokenHolder: string;
+    partition: string;
+    holdId: BigNumber;
+    hold: HoldStructOutput;
+    operatorData: string;
+}
+export type ControllerHeldByPartitionEvent = TypedEvent<[
+    string,
+    string,
+    string,
+    BigNumber,
+    HoldStructOutput,
+    string
+], ControllerHeldByPartitionEventObject>;
+export type ControllerHeldByPartitionEventFilter = TypedEventFilter<ControllerHeldByPartitionEvent>;
+export interface OperatorHeldByPartitionEventObject {
+    operator: string;
+    tokenHolder: string;
+    partition: string;
+    holdId: BigNumber;
+    hold: HoldStructOutput;
+    operatorData: string;
+}
+export type OperatorHeldByPartitionEvent = TypedEvent<[
+    string,
+    string,
+    string,
+    BigNumber,
+    HoldStructOutput,
+    string
+], OperatorHeldByPartitionEventObject>;
+export type OperatorHeldByPartitionEventFilter = TypedEventFilter<OperatorHeldByPartitionEvent>;
+export interface ProtectedHeldByPartitionEventObject {
+    operator: string;
+    tokenHolder: string;
+    partition: string;
+    holdId: BigNumber;
+    hold: HoldStructOutput;
+    operatorData: string;
+}
+export type ProtectedHeldByPartitionEvent = TypedEvent<[
+    string,
+    string,
+    string,
+    BigNumber,
+    HoldStructOutput,
+    string
+], ProtectedHeldByPartitionEventObject>;
+export type ProtectedHeldByPartitionEventFilter = TypedEventFilter<ProtectedHeldByPartitionEvent>;
+export interface IHoldManagement extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: IHoldManagementInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        controllerCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        operatorCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        protectedCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _protectedHold: ProtectedHoldStruct, _signature: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+    };
+    controllerCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    operatorCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    protectedCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _protectedHold: ProtectedHoldStruct, _signature: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    callStatic: {
+        controllerCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<[
+            boolean,
+            BigNumber
+        ] & {
+            success_: boolean;
+            holdId_: BigNumber;
+        }>;
+        operatorCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<[
+            boolean,
+            BigNumber
+        ] & {
+            success_: boolean;
+            holdId_: BigNumber;
+        }>;
+        protectedCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _protectedHold: ProtectedHoldStruct, _signature: PromiseOrValue<BytesLike>, overrides?: CallOverrides): Promise<[
+            boolean,
+            BigNumber
+        ] & {
+            success_: boolean;
+            holdId_: BigNumber;
+        }>;
+    };
+    filters: {
+        "ControllerHeldByPartition(address,address,bytes32,uint256,tuple,bytes)"(operator?: PromiseOrValue<string> | null, tokenHolder?: PromiseOrValue<string> | null, partition?: null, holdId?: null, hold?: null, operatorData?: null): ControllerHeldByPartitionEventFilter;
+        ControllerHeldByPartition(operator?: PromiseOrValue<string> | null, tokenHolder?: PromiseOrValue<string> | null, partition?: null, holdId?: null, hold?: null, operatorData?: null): ControllerHeldByPartitionEventFilter;
+        "OperatorHeldByPartition(address,address,bytes32,uint256,tuple,bytes)"(operator?: PromiseOrValue<string> | null, tokenHolder?: PromiseOrValue<string> | null, partition?: null, holdId?: null, hold?: null, operatorData?: null): OperatorHeldByPartitionEventFilter;
+        OperatorHeldByPartition(operator?: PromiseOrValue<string> | null, tokenHolder?: PromiseOrValue<string> | null, partition?: null, holdId?: null, hold?: null, operatorData?: null): OperatorHeldByPartitionEventFilter;
+        "ProtectedHeldByPartition(address,address,bytes32,uint256,tuple,bytes)"(operator?: PromiseOrValue<string> | null, tokenHolder?: PromiseOrValue<string> | null, partition?: null, holdId?: null, hold?: null, operatorData?: null): ProtectedHeldByPartitionEventFilter;
+        ProtectedHeldByPartition(operator?: PromiseOrValue<string> | null, tokenHolder?: PromiseOrValue<string> | null, partition?: null, holdId?: null, hold?: null, operatorData?: null): ProtectedHeldByPartitionEventFilter;
+    };
+    estimateGas: {
+        controllerCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        operatorCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        protectedCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _protectedHold: ProtectedHoldStruct, _signature: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        controllerCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        operatorCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _hold: HoldStruct, _operatorData: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        protectedCreateHoldByPartition(_partition: PromiseOrValue<BytesLike>, _from: PromiseOrValue<string>, _protectedHold: ProtectedHoldStruct, _signature: PromiseOrValue<BytesLike>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+    };
+}

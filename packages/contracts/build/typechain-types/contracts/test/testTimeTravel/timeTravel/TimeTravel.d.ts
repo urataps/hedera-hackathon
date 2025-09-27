@@ -1,0 +1,190 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, ContractTransaction, Overrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../../common";
+export interface TimeTravelInterface extends utils.Interface {
+    functions: {
+        "blockTimestamp()": FunctionFragment;
+        "changeSystemBlocknumber(uint256)": FunctionFragment;
+        "changeSystemTimestamp(uint256)": FunctionFragment;
+        "checkBlockChainid(uint256)": FunctionFragment;
+        "getStaticFunctionSelectors()": FunctionFragment;
+        "getStaticInterfaceIds()": FunctionFragment;
+        "getStaticResolverKey()": FunctionFragment;
+        "resetSystemBlocknumber()": FunctionFragment;
+        "resetSystemTimestamp()": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "blockTimestamp" | "changeSystemBlocknumber" | "changeSystemTimestamp" | "checkBlockChainid" | "getStaticFunctionSelectors" | "getStaticInterfaceIds" | "getStaticResolverKey" | "resetSystemBlocknumber" | "resetSystemTimestamp"): FunctionFragment;
+    encodeFunctionData(functionFragment: "blockTimestamp", values?: undefined): string;
+    encodeFunctionData(functionFragment: "changeSystemBlocknumber", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "changeSystemTimestamp", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "checkBlockChainid", values: [PromiseOrValue<BigNumberish>]): string;
+    encodeFunctionData(functionFragment: "getStaticFunctionSelectors", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getStaticInterfaceIds", values?: undefined): string;
+    encodeFunctionData(functionFragment: "getStaticResolverKey", values?: undefined): string;
+    encodeFunctionData(functionFragment: "resetSystemBlocknumber", values?: undefined): string;
+    encodeFunctionData(functionFragment: "resetSystemTimestamp", values?: undefined): string;
+    decodeFunctionResult(functionFragment: "blockTimestamp", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "changeSystemBlocknumber", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "changeSystemTimestamp", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "checkBlockChainid", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getStaticFunctionSelectors", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getStaticInterfaceIds", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "getStaticResolverKey", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "resetSystemBlocknumber", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "resetSystemTimestamp", data: BytesLike): Result;
+    events: {
+        "SystemBlocknumberChanged(uint256,uint256)": EventFragment;
+        "SystemBlocknumberReset()": EventFragment;
+        "SystemTimestampChanged(uint256,uint256)": EventFragment;
+        "SystemTimestampReset()": EventFragment;
+    };
+    getEvent(nameOrSignatureOrTopic: "SystemBlocknumberChanged"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "SystemBlocknumberReset"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "SystemTimestampChanged"): EventFragment;
+    getEvent(nameOrSignatureOrTopic: "SystemTimestampReset"): EventFragment;
+}
+export interface SystemBlocknumberChangedEventObject {
+    legacySystemNumber: BigNumber;
+    newSystemNumber: BigNumber;
+}
+export type SystemBlocknumberChangedEvent = TypedEvent<[
+    BigNumber,
+    BigNumber
+], SystemBlocknumberChangedEventObject>;
+export type SystemBlocknumberChangedEventFilter = TypedEventFilter<SystemBlocknumberChangedEvent>;
+export interface SystemBlocknumberResetEventObject {
+}
+export type SystemBlocknumberResetEvent = TypedEvent<[
+], SystemBlocknumberResetEventObject>;
+export type SystemBlocknumberResetEventFilter = TypedEventFilter<SystemBlocknumberResetEvent>;
+export interface SystemTimestampChangedEventObject {
+    legacySystemTime: BigNumber;
+    newSystemTime: BigNumber;
+}
+export type SystemTimestampChangedEvent = TypedEvent<[
+    BigNumber,
+    BigNumber
+], SystemTimestampChangedEventObject>;
+export type SystemTimestampChangedEventFilter = TypedEventFilter<SystemTimestampChangedEvent>;
+export interface SystemTimestampResetEventObject {
+}
+export type SystemTimestampResetEvent = TypedEvent<[
+], SystemTimestampResetEventObject>;
+export type SystemTimestampResetEventFilter = TypedEventFilter<SystemTimestampResetEvent>;
+export interface TimeTravel extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: TimeTravelInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        blockTimestamp(overrides?: CallOverrides): Promise<[BigNumber]>;
+        changeSystemBlocknumber(_newSystemBlocknumber: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        changeSystemTimestamp(newTimestamp: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        checkBlockChainid(chainId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<[void]>;
+        getStaticFunctionSelectors(overrides?: CallOverrides): Promise<[string[]] & {
+            staticFunctionSelectors_: string[];
+        }>;
+        getStaticInterfaceIds(overrides?: CallOverrides): Promise<[string[]] & {
+            staticInterfaceIds_: string[];
+        }>;
+        getStaticResolverKey(overrides?: CallOverrides): Promise<[string] & {
+            staticResolverKey_: string;
+        }>;
+        resetSystemBlocknumber(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        resetSystemTimestamp(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+    };
+    blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+    changeSystemBlocknumber(_newSystemBlocknumber: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    changeSystemTimestamp(newTimestamp: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    checkBlockChainid(chainId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+    getStaticFunctionSelectors(overrides?: CallOverrides): Promise<string[]>;
+    getStaticInterfaceIds(overrides?: CallOverrides): Promise<string[]>;
+    getStaticResolverKey(overrides?: CallOverrides): Promise<string>;
+    resetSystemBlocknumber(overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    resetSystemTimestamp(overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    callStatic: {
+        blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+        changeSystemBlocknumber(_newSystemBlocknumber: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+        changeSystemTimestamp(newTimestamp: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+        checkBlockChainid(chainId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+        getStaticFunctionSelectors(overrides?: CallOverrides): Promise<string[]>;
+        getStaticInterfaceIds(overrides?: CallOverrides): Promise<string[]>;
+        getStaticResolverKey(overrides?: CallOverrides): Promise<string>;
+        resetSystemBlocknumber(overrides?: CallOverrides): Promise<void>;
+        resetSystemTimestamp(overrides?: CallOverrides): Promise<void>;
+    };
+    filters: {
+        "SystemBlocknumberChanged(uint256,uint256)"(legacySystemNumber?: null, newSystemNumber?: null): SystemBlocknumberChangedEventFilter;
+        SystemBlocknumberChanged(legacySystemNumber?: null, newSystemNumber?: null): SystemBlocknumberChangedEventFilter;
+        "SystemBlocknumberReset()"(): SystemBlocknumberResetEventFilter;
+        SystemBlocknumberReset(): SystemBlocknumberResetEventFilter;
+        "SystemTimestampChanged(uint256,uint256)"(legacySystemTime?: null, newSystemTime?: null): SystemTimestampChangedEventFilter;
+        SystemTimestampChanged(legacySystemTime?: null, newSystemTime?: null): SystemTimestampChangedEventFilter;
+        "SystemTimestampReset()"(): SystemTimestampResetEventFilter;
+        SystemTimestampReset(): SystemTimestampResetEventFilter;
+    };
+    estimateGas: {
+        blockTimestamp(overrides?: CallOverrides): Promise<BigNumber>;
+        changeSystemBlocknumber(_newSystemBlocknumber: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        changeSystemTimestamp(newTimestamp: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        checkBlockChainid(chainId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<BigNumber>;
+        getStaticFunctionSelectors(overrides?: CallOverrides): Promise<BigNumber>;
+        getStaticInterfaceIds(overrides?: CallOverrides): Promise<BigNumber>;
+        getStaticResolverKey(overrides?: CallOverrides): Promise<BigNumber>;
+        resetSystemBlocknumber(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        resetSystemTimestamp(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        blockTimestamp(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        changeSystemBlocknumber(_newSystemBlocknumber: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        changeSystemTimestamp(newTimestamp: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        checkBlockChainid(chainId: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getStaticFunctionSelectors(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getStaticInterfaceIds(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        getStaticResolverKey(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+        resetSystemBlocknumber(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        resetSystemTimestamp(overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+    };
+}

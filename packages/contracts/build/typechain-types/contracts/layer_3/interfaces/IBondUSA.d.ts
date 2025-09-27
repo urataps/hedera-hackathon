@@ -1,0 +1,195 @@
+import type { BaseContract, BigNumber, BigNumberish, BytesLike, CallOverrides, ContractTransaction, Overrides, PopulatedTransaction, Signer, utils } from "ethers";
+import type { FunctionFragment, Result } from "@ethersproject/abi";
+import type { Listener, Provider } from "@ethersproject/providers";
+import type { TypedEventFilter, TypedEvent, TypedListener, OnEvent, PromiseOrValue } from "../../../common";
+export type RegulationDataStruct = {
+    regulationType: PromiseOrValue<BigNumberish>;
+    regulationSubType: PromiseOrValue<BigNumberish>;
+    dealSize: PromiseOrValue<BigNumberish>;
+    accreditedInvestors: PromiseOrValue<BigNumberish>;
+    maxNonAccreditedInvestors: PromiseOrValue<BigNumberish>;
+    manualInvestorVerification: PromiseOrValue<BigNumberish>;
+    internationalInvestors: PromiseOrValue<BigNumberish>;
+    resaleHoldPeriod: PromiseOrValue<BigNumberish>;
+};
+export type RegulationDataStructOutput = [
+    number,
+    number,
+    BigNumber,
+    number,
+    BigNumber,
+    number,
+    number,
+    number
+] & {
+    regulationType: number;
+    regulationSubType: number;
+    dealSize: BigNumber;
+    accreditedInvestors: number;
+    maxNonAccreditedInvestors: BigNumber;
+    manualInvestorVerification: number;
+    internationalInvestors: number;
+    resaleHoldPeriod: number;
+};
+export type AdditionalSecurityDataStruct = {
+    countriesControlListType: PromiseOrValue<boolean>;
+    listOfCountries: PromiseOrValue<string>;
+    info: PromiseOrValue<string>;
+};
+export type AdditionalSecurityDataStructOutput = [boolean, string, string] & {
+    countriesControlListType: boolean;
+    listOfCountries: string;
+    info: string;
+};
+export declare namespace IBondRead {
+    type BondDetailsDataStruct = {
+        currency: PromiseOrValue<BytesLike>;
+        nominalValue: PromiseOrValue<BigNumberish>;
+        startingDate: PromiseOrValue<BigNumberish>;
+        maturityDate: PromiseOrValue<BigNumberish>;
+    };
+    type BondDetailsDataStructOutput = [
+        string,
+        BigNumber,
+        BigNumber,
+        BigNumber
+    ] & {
+        currency: string;
+        nominalValue: BigNumber;
+        startingDate: BigNumber;
+        maturityDate: BigNumber;
+    };
+    type CouponDetailsDataStruct = {
+        couponFrequency: PromiseOrValue<BigNumberish>;
+        couponRate: PromiseOrValue<BigNumberish>;
+        firstCouponDate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponDetailsDataStructOutput = [
+        BigNumber,
+        BigNumber,
+        BigNumber
+    ] & {
+        couponFrequency: BigNumber;
+        couponRate: BigNumber;
+        firstCouponDate: BigNumber;
+    };
+    type CouponStruct = {
+        recordDate: PromiseOrValue<BigNumberish>;
+        executionDate: PromiseOrValue<BigNumberish>;
+        rate: PromiseOrValue<BigNumberish>;
+    };
+    type CouponStructOutput = [BigNumber, BigNumber, BigNumber] & {
+        recordDate: BigNumber;
+        executionDate: BigNumber;
+        rate: BigNumber;
+    };
+}
+export interface IBondUSAInterface extends utils.Interface {
+    functions: {
+        "_initialize_bondUSA((bytes3,uint256,uint256,uint256),(uint256,uint256,uint256),(uint8,uint8,uint256,uint8,uint256,uint8,uint8,uint8),(bool,string,string))": FunctionFragment;
+        "redeemAtMaturityByPartition(address,bytes32,uint256)": FunctionFragment;
+        "setCoupon((uint256,uint256,uint256))": FunctionFragment;
+        "updateMaturityDate(uint256)": FunctionFragment;
+    };
+    getFunction(nameOrSignatureOrTopic: "_initialize_bondUSA" | "redeemAtMaturityByPartition" | "setCoupon" | "updateMaturityDate"): FunctionFragment;
+    encodeFunctionData(functionFragment: "_initialize_bondUSA", values: [
+        IBondRead.BondDetailsDataStruct,
+        IBondRead.CouponDetailsDataStruct,
+        RegulationDataStruct,
+        AdditionalSecurityDataStruct
+    ]): string;
+    encodeFunctionData(functionFragment: "redeemAtMaturityByPartition", values: [
+        PromiseOrValue<string>,
+        PromiseOrValue<BytesLike>,
+        PromiseOrValue<BigNumberish>
+    ]): string;
+    encodeFunctionData(functionFragment: "setCoupon", values: [IBondRead.CouponStruct]): string;
+    encodeFunctionData(functionFragment: "updateMaturityDate", values: [PromiseOrValue<BigNumberish>]): string;
+    decodeFunctionResult(functionFragment: "_initialize_bondUSA", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "redeemAtMaturityByPartition", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "setCoupon", data: BytesLike): Result;
+    decodeFunctionResult(functionFragment: "updateMaturityDate", data: BytesLike): Result;
+    events: {};
+}
+export interface IBondUSA extends BaseContract {
+    connect(signerOrProvider: Signer | Provider | string): this;
+    attach(addressOrName: string): this;
+    deployed(): Promise<this>;
+    interface: IBondUSAInterface;
+    queryFilter<TEvent extends TypedEvent>(event: TypedEventFilter<TEvent>, fromBlockOrBlockhash?: string | number | undefined, toBlock?: string | number | undefined): Promise<Array<TEvent>>;
+    listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
+    listeners(eventName?: string): Array<Listener>;
+    removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
+    removeAllListeners(eventName?: string): this;
+    off: OnEvent<this>;
+    on: OnEvent<this>;
+    once: OnEvent<this>;
+    removeListener: OnEvent<this>;
+    functions: {
+        _initialize_bondUSA(_bondDetailsData: IBondRead.BondDetailsDataStruct, _couponDetailsData: IBondRead.CouponDetailsDataStruct, _regulationData: RegulationDataStruct, _additionalSecurityData: AdditionalSecurityDataStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<ContractTransaction>;
+    };
+    _initialize_bondUSA(_bondDetailsData: IBondRead.BondDetailsDataStruct, _couponDetailsData: IBondRead.CouponDetailsDataStruct, _regulationData: RegulationDataStruct, _additionalSecurityData: AdditionalSecurityDataStruct, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+        from?: PromiseOrValue<string>;
+    }): Promise<ContractTransaction>;
+    callStatic: {
+        _initialize_bondUSA(_bondDetailsData: IBondRead.BondDetailsDataStruct, _couponDetailsData: IBondRead.CouponDetailsDataStruct, _regulationData: RegulationDataStruct, _additionalSecurityData: AdditionalSecurityDataStruct, overrides?: CallOverrides): Promise<void>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<void>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: CallOverrides): Promise<[
+            boolean,
+            BigNumber
+        ] & {
+            success_: boolean;
+            couponID_: BigNumber;
+        }>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: CallOverrides): Promise<boolean>;
+    };
+    filters: {};
+    estimateGas: {
+        _initialize_bondUSA(_bondDetailsData: IBondRead.BondDetailsDataStruct, _couponDetailsData: IBondRead.CouponDetailsDataStruct, _regulationData: RegulationDataStruct, _additionalSecurityData: AdditionalSecurityDataStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<BigNumber>;
+    };
+    populateTransaction: {
+        _initialize_bondUSA(_bondDetailsData: IBondRead.BondDetailsDataStruct, _couponDetailsData: IBondRead.CouponDetailsDataStruct, _regulationData: RegulationDataStruct, _additionalSecurityData: AdditionalSecurityDataStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        redeemAtMaturityByPartition(_tokenHolder: PromiseOrValue<string>, _partition: PromiseOrValue<BytesLike>, _amount: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        setCoupon(_newCoupon: IBondRead.CouponStruct, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+        updateMaturityDate(_maturityDate: PromiseOrValue<BigNumberish>, overrides?: Overrides & {
+            from?: PromiseOrValue<string>;
+        }): Promise<PopulatedTransaction>;
+    };
+}
