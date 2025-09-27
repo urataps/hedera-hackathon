@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button"
 import { PropertyCard } from "@/components/property-card"
 import { PropertyDetail } from "@/components/property-detail"
-import { Search, MapPin, TrendingUp, Activity, ChevronLeft, ChevronRight } from "lucide-react"
+import { Search, MapPin, TrendingUp, Activity, ChevronLeft, ChevronRight, Package } from "lucide-react"
 
 const mockProperties = [
   {
@@ -274,6 +274,7 @@ export function Marketplace() {
   const paginatedProperties = filteredProperties.slice(startIndex, endIndex)
 
   const handleFilterChange = (filterType: string, value: string) => {
+    console.log(`Filter change: ${filterType} = ${value}`)
     setCurrentPage(1)
     switch (filterType) {
       case "search":
@@ -306,6 +307,8 @@ export function Marketplace() {
     return <PropertyDetail property={selectedProperty} onBack={handleBackToMarketplace} />
   }
 
+  console.log('Current states:', { selectedCategory, selectedRegion, yieldRange, statusFilter })
+  
   return (
     <div className="min-h-screen bg-slate-50">
       <section className="container mx-auto px-6 py-8">
@@ -338,14 +341,17 @@ export function Marketplace() {
             </div>
 
             <div className="flex flex-wrap gap-[17px]">
-              <Select value={selectedCategory} onValueChange={(value) => handleFilterChange("category", value)}>
+              <Select value={selectedCategory} onValueChange={(value) => {
+                console.log('Category select clicked:', value)
+                handleFilterChange("category", value)
+              }}>
                 <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[109px] h-[34px] transition-all duration-200 ${
                   selectedCategory !== "all" 
-                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
-                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                    ? "bg-red-500 text-white border-red-500" 
+                    : "bg-white border border-gray-300"
                 }`}>
                   <div className="flex items-center gap-[8px]">
-                    <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                    <Package className={`h-3 w-3 ${selectedCategory !== "all" ? "text-white" : "text-[#868c98]"}`} />
                     <SelectValue placeholder="Assets" />
                   </div>
                 </SelectTrigger>
@@ -368,11 +374,11 @@ export function Marketplace() {
               <Select value={selectedRegion} onValueChange={(value) => handleFilterChange("region", value)}>
                 <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[129px] h-[34px] transition-all duration-200 ${
                   selectedRegion !== "all" 
-                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
-                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                    ? "bg-blue-500 text-white border-blue-500" 
+                    : "bg-white border border-gray-300"
                 }`}>
                   <div className="flex items-center gap-[8px]">
-                    <MapPin className="h-3 w-3 text-[#868c98]" />
+                    <MapPin className={`h-3 w-3 ${selectedRegion !== "all" ? "text-white" : "text-[#868c98]"}`} />
                     <SelectValue placeholder="Locations" />
                   </div>
                 </SelectTrigger>
@@ -407,11 +413,11 @@ export function Marketplace() {
               <Select value={yieldRange} onValueChange={(value) => handleFilterChange("yield", value)}>
                 <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[107px] h-[34px] transition-all duration-200 ${
                   yieldRange !== "all" 
-                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
-                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                    ? "bg-green-500 text-white border-green-500" 
+                    : "bg-white border border-gray-300"
                 }`}>
                   <div className="flex items-center gap-[8px]">
-                    <TrendingUp className="h-3 w-3 text-[#868c98]" />
+                    <TrendingUp className={`h-3 w-3 ${yieldRange !== "all" ? "text-white" : "text-[#868c98]"}`} />
                     <SelectValue placeholder="Yields" />
                   </div>
                 </SelectTrigger>
@@ -434,11 +440,11 @@ export function Marketplace() {
               <Select value={statusFilter} onValueChange={(value) => handleFilterChange("status", value)}>
                 <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[109px] h-[34px] transition-all duration-200 ${
                   statusFilter !== "all" 
-                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
-                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                    ? "bg-purple-500 text-white border-purple-500" 
+                    : "bg-white border border-gray-300"
                 }`}>
                   <div className="flex items-center gap-[8px]">
-                    <Activity className="h-3 w-3 text-[#868c98]" />
+                    <Activity className={`h-3 w-3 ${statusFilter !== "all" ? "text-white" : "text-[#868c98]"}`} />
                     <SelectValue placeholder="Status" />
                   </div>
                 </SelectTrigger>
