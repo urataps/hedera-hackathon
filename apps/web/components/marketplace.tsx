@@ -312,21 +312,41 @@ export function Marketplace() {
         <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 mb-8">
           <div className="flex flex-col lg:flex-row gap-6 items-center">
             <div className="relative flex-1 min-w-[320px]">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
-              <Input
-                placeholder="Search properties, locations, or asset types..."
-                value={searchTerm}
-                onChange={(e) => handleFilterChange("search", e.target.value)}
-                className="pl-12 pr-4 py-4 bg-white border-2 border-slate-200 rounded-full focus:border-emerald-500 focus:ring-0 text-slate-900 placeholder:text-slate-500 shadow-sm hover:shadow-md transition-all duration-200"
-              />
+              <div className="bg-neutral-100 box-border content-stretch flex gap-[10px] items-center overflow-clip pl-[10px] pr-[5px] py-[6px] relative rounded-[6px] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.05)] size-full">
+                <div className="overflow-clip relative shrink-0 size-[16px]">
+                  <Search className="h-4 w-4 text-[rgba(134,140,152,1)]" />
+                </div>
+                <input
+                  placeholder="Search everything..."
+                  value={searchTerm}
+                  onChange={(e) => handleFilterChange("search", e.target.value)}
+                  className="basis-0 font-['Inter_Display:Regular',_sans-serif] grow leading-[20px] min-h-px min-w-px not-italic relative shrink-0 text-[14px] text-[rgba(134,140,152,0.6)] bg-transparent border-none outline-none placeholder:text-[rgba(134,140,152,0.6)]"
+                />
+                <div className="bg-white box-border content-stretch flex gap-[4px] items-center overflow-clip px-[6px] py-[2px] relative rounded-[6px] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.05),0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)] shrink-0">
+                  <div className="overflow-clip relative shrink-0 size-[14px]">
+                    <div className="absolute inset-[15.625%]">
+                      <div className="absolute inset-[-6.23%]">
+                        <img alt="" className="block max-w-none size-full" src="http://localhost:3845/assets/b73d8c552a30c61a4b917138944f3ce65e0ece76.svg" />
+                      </div>
+                    </div>
+                  </div>
+                  <p className="font-['Geist:Medium',_sans-serif] font-medium leading-[20px] relative shrink-0 text-[#344054] text-[14px] text-nowrap whitespace-pre">
+                    K
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-[17px]">
               <Select value={selectedCategory} onValueChange={(value) => handleFilterChange("category", value)}>
-                <SelectTrigger className="bg-white border-2 border-slate-200 hover:border-slate-300 rounded-full px-6 py-3 hover:shadow-md transition-all duration-200 min-w-[140px]">
-                  <div className="flex items-center gap-2">
+                <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[109px] h-[34px] transition-all duration-200 ${
+                  selectedCategory !== "all" 
+                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
+                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                }`}>
+                  <div className="flex items-center gap-[8px]">
                     <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                    <SelectValue placeholder="Asset Type" />
+                    <SelectValue placeholder="Assets" />
                   </div>
                 </SelectTrigger>
                 <SelectContent className="rounded-2xl border-0 shadow-2xl bg-white p-2">
@@ -346,10 +366,14 @@ export function Marketplace() {
               </Select>
 
               <Select value={selectedRegion} onValueChange={(value) => handleFilterChange("region", value)}>
-                <SelectTrigger className="bg-white border-2 border-slate-200 hover:border-slate-300 rounded-full px-6 py-3 hover:shadow-md transition-all duration-200 min-w-[120px]">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-3 w-3 text-slate-500" />
-                    <SelectValue placeholder="Location" />
+                <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[129px] h-[34px] transition-all duration-200 ${
+                  selectedRegion !== "all" 
+                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
+                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                }`}>
+                  <div className="flex items-center gap-[8px]">
+                    <MapPin className="h-3 w-3 text-[#868c98]" />
+                    <SelectValue placeholder="Locations" />
                   </div>
                 </SelectTrigger>
                 <SelectContent className="rounded-2xl border-0 shadow-2xl bg-white p-2">
@@ -381,10 +405,14 @@ export function Marketplace() {
               </Select>
 
               <Select value={yieldRange} onValueChange={(value) => handleFilterChange("yield", value)}>
-                <SelectTrigger className="bg-white border-2 border-slate-200 hover:border-slate-300 rounded-full px-6 py-3 hover:shadow-md transition-all duration-200 min-w-[120px]">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-3 w-3 text-emerald-500" />
-                    <SelectValue placeholder="Yield" />
+                <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[107px] h-[34px] transition-all duration-200 ${
+                  yieldRange !== "all" 
+                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
+                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                }`}>
+                  <div className="flex items-center gap-[8px]">
+                    <TrendingUp className="h-3 w-3 text-[#868c98]" />
+                    <SelectValue placeholder="Yields" />
                   </div>
                 </SelectTrigger>
                 <SelectContent className="rounded-2xl border-0 shadow-2xl bg-white p-2">
@@ -404,9 +432,13 @@ export function Marketplace() {
               </Select>
 
               <Select value={statusFilter} onValueChange={(value) => handleFilterChange("status", value)}>
-                <SelectTrigger className="bg-white border-2 border-slate-200 hover:border-slate-300 rounded-full px-6 py-3 hover:shadow-md transition-all duration-200 min-w-[120px]">
-                  <div className="flex items-center gap-2">
-                    <Activity className="h-3 w-3 text-emerald-500" />
+                <SelectTrigger className={`relative rounded-[6px] px-[10px] py-[6px] min-w-[109px] h-[34px] transition-all duration-200 ${
+                  statusFilter !== "all" 
+                    ? "bg-[#20232d] text-white shadow-[0px_-10px_8px_0px_inset_rgba(255,255,255,0.1),0px_2px_2px_0px_inset_rgba(255,255,255,0.25)] border border-[#20232d] shadow-[0px_5px_5px_-2.5px_rgba(42,51,70,0.03),0px_10px_10px_-5px_rgba(42,51,70,0.03),0px_10px_24px_-8px_rgba(42,51,70,0.03)]" 
+                    : "bg-white border border-[rgba(0,0,0,0.09)] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.09),0px_10px_24px_-8px_rgba(42,51,70,0.03)]"
+                }`}>
+                  <div className="flex items-center gap-[8px]">
+                    <Activity className="h-3 w-3 text-[#868c98]" />
                     <SelectValue placeholder="Status" />
                   </div>
                 </SelectTrigger>
